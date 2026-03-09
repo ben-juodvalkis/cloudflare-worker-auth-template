@@ -44,8 +44,10 @@
       border: 1px solid #333;
       border-radius: 6px;
       color: #aaa;
-      text-decoration: none;
+      background: transparent;
+      font-family: inherit;
       font-size: 0.85rem;
+      cursor: pointer;
       transition: border-color 0.2s, color 0.2s;
     }
     .logout:hover {
@@ -59,7 +61,9 @@
     <div class="lock">Authenticated</div>
     <h1>You're in.</h1>
     <p>This is a protected page. Replace this with your content.</p>
-    <a href="/logout" class="logout">Logout</a>
+    <form method="POST" action="/logout" style="display:inline">
+      <button type="submit" class="logout">Logout</button>
+    </form>
   </div>
 </body>
 </html>

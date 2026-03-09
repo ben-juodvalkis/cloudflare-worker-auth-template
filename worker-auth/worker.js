@@ -7,8 +7,16 @@ export default {
 
     // Handle login form POST
     if (url.pathname === '/login' && request.method === 'POST') {
-      response = await handleLogin(request, env);
-    } else if (url.pathname === '/logout') {
+      const { success } = await env.LOGIN_RATE_LIMITER.limit({
+        key: request.headers.get('cf-connecting-ip') || 'unknown',
+      });
+      if (!success) {
+        response = loginPage('Too many attempts. Try again later.');
+        response = new Response(response.body, { status: 429, headers: response.headers });
+      } else {
+        response = await handleLogin(request, env);
+      }
+    } else if (url.pathname === '/logout' && request.method === 'POST') {
       response = handleLogout();
     } else if (await isAuthenticated(request, env)) {
       response = serveContent();
@@ -41,12 +49,18 @@ async function handleLogin(request, env) {
   const form = await request.formData();
   const password = form.get('password');
 
+  if (!password || typeof password !== 'string') {
+    await new Promise(r => setTimeout(r, 500));
+    return loginPage('Incorrect password');
+  }
+
   if (!(await safeCompare(password, env.SITE_PASSWORD))) {
     await new Promise(r => setTimeout(r, 500));
     return loginPage('Incorrect password');
   }
 
-  const token = await signHmac(`auth:${Date.now()}`, env.AUTH_SECRET);
+  const nonce = crypto.randomUUID();
+  const token = await signHmac(`auth:${Date.now()}:${nonce}`, env.AUTH_SECRET);
 
   return new Response(null, {
     status: 303,
@@ -140,6 +154,7 @@ function withSecurityHeaders(response) {
   headers.set('X-Frame-Options', 'DENY');
   headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
   headers.set('Content-Security-Policy', "default-src 'self'; style-src 'unsafe-inline'");
+  headers.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
   return new Response(response.body, { status: response.status, headers });
 }
 

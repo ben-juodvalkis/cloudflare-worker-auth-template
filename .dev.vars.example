@@ -1,0 +1,2 @@
+SITE_PASSWORD=your-password-here
+AUTH_SECRET=run-openssl-rand--hex-32-to-generate

@@ -1,4 +1,4 @@
-import PAGE_HTML from './index.html';
+import PAGE_HTML from '../index.html';
 
 export default {
   async fetch(request, env) {

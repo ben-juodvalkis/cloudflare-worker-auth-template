@@ -6,7 +6,10 @@ rules = [
   { type = "Text", globs = ["**/*.html"] }
 ]
 
-[[rate_limiting]]
-binding = "LOGIN_RATE_LIMITER"
+[[ratelimits]]
+name = "LOGIN_RATE_LIMITER"
 namespace_id = "1001"
-simple = { limit = 10, period = 60 }
+
+  [ratelimits.simple]
+  limit = 10
+  period = 60

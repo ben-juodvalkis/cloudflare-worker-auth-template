@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Protected Site</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0a0a0a;
+      color: #e0e0e0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .container {
+      text-align: center;
+      padding: 2rem;
+    }
+    .lock {
+      font-size: 1rem;
+      color: #4ade80;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+    p {
+      color: #888;
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+    }
+    .logout {
+      display: inline-block;
+      padding: 0.6rem 1.5rem;
+      border: 1px solid #333;
+      border-radius: 6px;
+      color: #aaa;
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .logout:hover {
+      border-color: #666;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="lock">Authenticated</div>
+    <h1>You're in.</h1>
+    <p>This is a protected page. Replace this with your content.</p>
+    <a href="/logout" class="logout">Logout</a>
+  </div>
+</body>
+</html>

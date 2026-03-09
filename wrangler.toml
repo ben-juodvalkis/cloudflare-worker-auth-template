@@ -1,5 +1,5 @@
 name = "gabrielwagner"
-main = "worker.js"
+main = "worker-auth/worker.js"
 compatibility_date = "2024-01-01"
 
 rules = [

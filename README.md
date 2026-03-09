@@ -23,12 +23,14 @@ Request → Worker → Has valid cookie? → Yes → Serve index.html
 ## Project Structure
 
 ```
-worker-auth/
-├── worker.js        # All auth logic + login page template
-├── index.html       # Protected page content (served after auth)
-├── wrangler.toml    # Cloudflare Worker config
-├── .dev.vars        # Local secrets for wrangler dev (gitignored)
-└── .gitignore
+├── index.html                # Protected page content (served after auth)
+├── wrangler.toml             # Cloudflare Worker config
+├── .dev.vars                 # Local secrets for wrangler dev (gitignored)
+├── .gitignore
+├── README.md
+├── documentation/            # Reference docs
+└── worker-auth/
+    └── worker.js             # Auth logic + login page template
 ```
 
 ## Setup
